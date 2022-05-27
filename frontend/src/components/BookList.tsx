@@ -71,6 +71,7 @@ const BooksList: React.FC = () => {
   const setActiveBook = (book: IBook, index: number) => {
     setCurrentBook(book);
     setCurrentIndex(index);
+    setshowEditBook(null);
   };
   const removeAllTutorials = () => {
     BookDataService.removeAll()
