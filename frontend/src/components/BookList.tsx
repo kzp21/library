@@ -11,6 +11,7 @@ const BooksList: React.FC = () => {
 
   const [books, setBooks] = useState<Array<IBook>>([]);
   const [currentBook, setCurrentBook] = useState<IBook | null>(null);
+  const [showEditBook, setshowEditBook] = useState<IBook | null>(null);
   const [editBook, setEditBook] = useState<IBook>(initialBookState);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [searchTitle, setSearchTitle] = useState<string>("");
@@ -21,13 +22,19 @@ const BooksList: React.FC = () => {
     setEditBook({ ...editBook, [name]: value });
   };
 
+  const setBookForEdit = (book: IBook) => {
+    setEditBook(book);
+    setshowEditBook(book)
+  }
+
   const updateBook = () => {
     var data = {
       name: editBook.name,
     };
+
     BookDataService.update(editBook.id, data)
       .then((response: any) => {
-        setEditBook(initialBookState);
+        setshowEditBook(null)
         setSubmitted(true);
         window.location.reload();
         console.log(response.data);
@@ -160,7 +167,7 @@ const BooksList: React.FC = () => {
             </button>
             <button
               className="m-3 btn btn-sm btn-danger"
-              onClick={() => setEditBook(currentBook)}
+              onClick={() => setBookForEdit(currentBook)}
             >
               Edit
             </button>
@@ -173,7 +180,7 @@ const BooksList: React.FC = () => {
         )}
       </div>
       <div className="col-md-6">
-      {editBook ? (
+      {showEditBook ? (
           <div>
             <div className="form-group">
             <input
