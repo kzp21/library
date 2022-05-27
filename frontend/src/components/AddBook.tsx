@@ -5,6 +5,7 @@ const AddBook: React.FC = () => {
   const initialBookState = {
     id: null,
     name: "",
+    description: ""
   };
   const [books, setBooks] = useState<IBook>(initialBookState);
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -15,12 +16,14 @@ const AddBook: React.FC = () => {
   const saveBook = () => {
     var data = {
       name: books.name,
+      description: books.description
     };
     BookDataService.create(data)
       .then((response: any) => {
         setBooks({
           id: response.data.id,
-          name: response.data.name
+          name: response.data.name,
+          description: response.data.description
         });
         setSubmitted(true);
         window.location.reload();
@@ -56,6 +59,18 @@ const AddBook: React.FC = () => {
               value={books.name}
               onChange={handleInputChange}
               name="name"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="name">Description</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              required
+              value={books.description}
+              onChange={handleInputChange}
+              name="description"
             />
           </div>
           <button onClick={saveBook} className="btn btn-success">

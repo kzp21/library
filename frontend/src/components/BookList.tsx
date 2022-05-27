@@ -7,6 +7,7 @@ const BooksList: React.FC = () => {
   const initialBookState = {
     id: null,
     name: "",
+    description: ""
   }
 
   const [books, setBooks] = useState<Array<IBook>>([]);
@@ -30,6 +31,7 @@ const BooksList: React.FC = () => {
   const updateBook = () => {
     var data = {
       name: editBook.name,
+      description: editBook.description
     };
 
     BookDataService.update(editBook.id, data)
@@ -159,6 +161,12 @@ const BooksList: React.FC = () => {
               </label>{" "}
               {currentBook.name}
             </div>
+            <div>
+              <label>
+                <strong>Description:</strong>
+              </label>{" "}
+              {currentBook.description}
+            </div>
             <button
               className="m-3 btn btn-sm btn-danger"
               onClick={() => removeBook(currentBook.id)}
@@ -201,6 +209,18 @@ const BooksList: React.FC = () => {
               value={editBook.name}
               onChange={handleInputChange}
               name="name"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="name">Description</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              required
+              value={editBook.description}
+              onChange={handleInputChange}
+              name="description"
             />
           </div>
           <button onClick={updateBook} className="btn btn-success">

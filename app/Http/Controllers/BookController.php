@@ -33,6 +33,7 @@ class BookController extends Controller
    {
         $book = new Book;
         $book->name= $request->name;
+        $book->description= $request->description;
         $book->save();
    }
 
@@ -45,6 +46,7 @@ class BookController extends Controller
    {
        $book = Book::find($id);
        $book->name= $request->name;
+       $book->description= $request->description;
        $book->save();
    }
 }
